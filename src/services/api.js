@@ -5,7 +5,7 @@ export const savePersonName = async (obj) => await instance.post('/', obj)
 
 export const getPersons = async () => await instance.get();
 
-export const getPerson = async (id) => await instance.get(`/${id}`);
+export const getPlayersByTeam = async (id) => await instance.get(`/${id}`);
 
 
 export const deletePerson = async (id) => await instance.delete('/' + id);
