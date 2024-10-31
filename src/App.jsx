@@ -12,16 +12,13 @@ const getTeams = () =>{
   })
 }
 
-const fetchPlayers  = async (equipoCod)=>{
-  await getPlayersByTeam(equipoCod).then(data=>{
-    console.log('Jugadores',data)
-    setJugadores(data.data.jugadores);
-  })
-}
 
 const handleTeamChange = async (event) => {
   const selectedTeam = event.target.value;
-  await fetchPlayers(selectedTeam);
+  await getPlayersByTeam(selectedTeam).then(data=>{
+    console.log('Jugadores',data)
+    setJugadores(data.data.jugadores);
+  })
 }
 
 
@@ -40,20 +37,41 @@ useEffect(()=>{
             {equipo.nombre}
           </option>
         ))}
+
       </select>
-      
+      <div style={{display:"flex", alignItems:"start"}}>
       <table border="1px">
         {jugadores?.map((jugador) => (
-          <tr key={jugador.id} >
+         <tr key={jugador.id} >
             <td>{jugador.jugadorCod}</td>
             <td>{jugador.nombre}</td>
             <td>{jugador.numeroCamiseta}</td>
-            <td>
+            {/* <td>
               <div style={{backgroundColor:'yellow', width:`${jugador.calidad * 30}px`, height:'20px'}}></div>
-            </td>          
+            </td>           */}
           </tr>
         ))}
+        </table>
+
+
+       <table  border="1px">
+       <tr>
+       {jugadores?.map((jugador) => (
+         <td key={jugador.jugadorCod} style={{verticalAlign:'bottom'}}>
+          <div  style={{backgroundColor:'yellow', height:`${jugador.calidad * 30}px`, width:'20px'}}></div>
+         </td>
+        ))} 
+        </tr>
+      
+        <tr>
+        {jugadores?.map((jugador) => (
+          <td key={jugador.jugadorCod2}>{jugador.numeroCamiseta}</td>
+         ))}       
+         </tr>
       </table>
+      
+
+      </div>
     </>
   );
 };
